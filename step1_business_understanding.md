@@ -20,6 +20,66 @@ To test our hypothesis, we need access to:
 📂 **Historical Price Data** – The prices charged for electricity and gas at different time intervals.  
 📂 **Competitor Pricing Data** (if available) – To compare PowerCo’s pricing strategy with competitors.  
 
+## Dataset Overview (Business Perspective)
+
+To predict customer churn in an energy services company, we use two main datasets:
+
+### 1. Client Data
+
+This dataset contains detailed information about each client company, including:
+
+- **Customer Profile & Activity**:  
+  - Category of business activity (`activity_new`)  
+  - Sales channel (`channel_sales`)  
+  - Whether the client uses gas (`has_gas`)
+
+- **Consumption History**:  
+  - Electricity and gas consumption over the past 12 months (`cons_12m`, `cons_gas_12m`)  
+  - Consumption from the last month (`cons_last_month`)
+
+- **Contract Lifecycle**:  
+  - Dates of activation, renewal, end of contract, and last modification  
+    (`date_activ`, `date_renewal`, `date_end`, `date_modif_prod`)
+
+- **Forecasts & Pricing**:  
+  - Forecasted consumption and discount metrics (`forecast_cons_12m`, `forecast_cons_year`,  
+    `forecast_discount_energy`)  
+  - Forecasted prices and meter rent (`forecast_meter_rent_12m`, `forecast_price_energy_off_peak`,  
+    `forecast_price_energy_peak`, `forecast_price_pow_off_peak`)
+
+- **Financial Metrics**:  
+  - Gross and net margins, total net margin, and number of active products  
+    (`margin_gross_pow_ele`, `margin_net_pow_ele`, `net_margin`, `nb_prod_act`)
+
+- **Customer Tenure**:  
+  - Number of years the client has been with the company (`num_years_antig`)
+
+- **Target Variable**:  
+  - `churn`: whether the client is expected to leave in the next three months
+
+*Note: Some fields (e.g., sales channel, campaign origin) are anonymized to preserve privacy,  
+but may still hold predictive power.*
+
+---
+
+### 2. Price Data
+
+This dataset provides historical pricing information, including:
+
+- **Energy Prices**:  
+  - Variable prices for off-peak, peak, and mid-peak energy usage  
+    (`price_off_peak_var`, `price_peak_var`, `price_mid_peak_var`)
+
+- **Power Prices**:  
+  - Fixed prices for power in the same three time periods  
+    (`price_off_peak_fix`, `price_peak_fix`, `price_mid_peak_fix`)
+
+- **Keys**:  
+  - Linked via `id` (client identifier) and `price_date` (date of pricing record)
+
+These datasets together enable the development of a machine learning model to identify at-risk customers and guide retention strategies.
+
+
 ## 🛠️ Approach to Analysis
 1️⃣ **Define Price Sensitivity** – Establish a metric to quantify how customer churn correlates with price changes.  
 2️⃣ **Data Preparation & Feature Engineering** – Clean the data, handle missing values, and engineer relevant features.  
